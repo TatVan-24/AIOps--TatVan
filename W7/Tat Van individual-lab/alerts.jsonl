@@ -1,0 +1,1 @@
+{"timestamp": "2026-06-06T07:23:34.246+00:00", "type": "dependency_timeout", "severity": "critical", "message": "Upstream timeout Z-score: 132.22. Breaker OPEN."}
