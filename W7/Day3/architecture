@@ -1,0 +1,34 @@
+digraph "Payment Anomaly Detection Pipeline" {
+	graph [fontcolor="#2D3436" fontname="Sans-Serif" fontsize=15 label="Payment Anomaly Detection Pipeline" nodesep=0.60 pad=2.0 rankdir=LR ranksep=0.75 splines=ortho]
+	node [fixedsize=true fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 height=1.4 imagescale=true labelloc=b shape=box style=rounded width=1.4]
+	edge [color="#7B8894"]
+	subgraph "cluster_Service Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Service Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		f87529b894954bf48d990c4e6f9cb0cd [label="Payment API" height=1.9 image="C:\Users\ACER\AppData\Local\Programs\Python\Python312\Lib\site-packages\resources/programming/language\go.png" shape=none]
+	}
+	subgraph "cluster_Collection Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Collection Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"70d02ac64a2d48919fe1d16188fdc13f" [label="OTel SDK" height=1.9 image="C:\Users\ACER\AppData\Local\Programs\Python\Python312\Lib\site-packages\resources/onprem/monitoring\prometheus.png" shape=none]
+	}
+	subgraph "cluster_Transport Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Transport Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"08e360667eef406a8bedd5e8f643159b" [label="Kafka Buffer" height=1.9 image="C:\Users\ACER\AppData\Local\Programs\Python\Python312\Lib\site-packages\resources/onprem/queue\kafka.png" shape=none]
+	}
+	subgraph "cluster_Processing Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Processing Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		f3e2919fbf124425b9e7f674f8cb4bdf [label="Flink Stateful" height=1.9 image="C:\Users\ACER\AppData\Local\Programs\Python\Python312\Lib\site-packages\resources/onprem/analytics\flink.png" shape=none]
+	}
+	subgraph "cluster_Storage Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Storage Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		d902fe2a85ee46819b488cfaea4eb6f1 [label=VictoriaMetrics height=1.9 image="C:\Users\ACER\AppData\Local\Programs\Python\Python312\Lib\site-packages\resources/onprem/database\postgresql.png" shape=none]
+	}
+	subgraph "cluster_Query & ML Layer" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Query & ML Layer" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		cb6ff35ed40a41c5a4ac5326e3216d7f [label="Grafana Alert" height=1.9 image="C:\Users\ACER\AppData\Local\Programs\Python\Python312\Lib\site-packages\resources/onprem/monitoring\grafana.png" shape=none]
+	}
+	f87529b894954bf48d990c4e6f9cb0cd -> "70d02ac64a2d48919fe1d16188fdc13f" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"70d02ac64a2d48919fe1d16188fdc13f" -> "08e360667eef406a8bedd5e8f643159b" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"08e360667eef406a8bedd5e8f643159b" -> f3e2919fbf124425b9e7f674f8cb4bdf [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	f3e2919fbf124425b9e7f674f8cb4bdf -> d902fe2a85ee46819b488cfaea4eb6f1 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	d902fe2a85ee46819b488cfaea4eb6f1 -> cb6ff35ed40a41c5a4ac5326e3216d7f [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+}

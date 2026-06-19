@@ -1,0 +1,27 @@
+# Cấu trúc của my-solution/config.yaml
+
+alertmanager_url: "http://localhost:9093"
+prometheus_url: "http://localhost:9090"
+poll_interval_seconds: 15
+runbook_timeout_seconds: 30
+
+# Bản đồ ánh xạ: Tên lỗi -> Tên script sửa lỗi
+runbook_map:
+  HighLatency: "runbooks/restart_service.sh"
+  HighErrorRate: "runbooks/clear_cache.sh"
+  InstanceDown: "runbooks/restart_service.sh"
+
+# Bản đồ Rollback: Nếu script sửa lỗi fail thì gọi thằng nào?
+rollback_map:
+  HighLatency: "runbooks/rollback_service.sh"
+  HighErrorRate: "runbooks/rollback_service.sh"
+  InstanceDown: "runbooks/rollback_service.sh"
+
+# Giới hạn an toàn (Blast-radius)
+blast_radius:
+  max_actions_per_minute: 5
+  max_restarts_per_service_per_hour: 3
+
+# Cầu dao điện
+circuit_breaker:
+  consecutive_failure_threshold: 3

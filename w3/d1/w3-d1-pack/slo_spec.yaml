@@ -1,0 +1,49 @@
+version: 1
+services:
+  - name: api
+    sli:
+      name: api_availability
+      kind: availability
+      formula: "count(2xx,3xx,4xx_not_429 AND latency<500ms) / count(all)"
+      promql_good: 'sum(rate(http_requests_total{status!~"5..|429",latency_le="500"}[1m]))'
+      promql_total: 'sum(rate(http_requests_total[1m]))'
+      source: access_log.jsonl
+    slo:
+      target: 0.98    
+      window_days: 30
+    budget:
+      total_events_per_month: 20737800      # 691,260 events/day * 30
+      allowed_failures_per_month: 414756    # 2% của tổng request
+      downtime_minutes_equivalent: 864      # (30 ngày * 1440 phút) * 2%
+
+  - name: db
+    sli:
+      name: db_query_success
+      kind: latency
+      formula: "count(success AND duration<100ms) / count(all)"
+      promql_good: 'sum(rate(db_queries_total{success="true",duration_le="100"}[1m]))'
+      promql_total: 'sum(rate(db_queries_total[1m]))'
+      source: db_query_log.jsonl
+    slo:
+      target: 0.995 
+      window_days: 30
+    budget:
+      total_events_per_month: 1726380       # 57,546 events/day * 30
+      allowed_failures_per_month: 8631      # 0.5% của tổng request
+      downtime_minutes_equivalent: 216      # (30 ngày * 1440 phút) * 0.5%
+
+  - name: frontend
+    sli:
+      name: frontend_reliability
+      kind: latency
+      formula: "count(dom_ready<3000ms AND js_error=false AND network_error=false) / count(all)"
+      promql_good: 'sum(rate(frontend_rum_total{js_error="false",network_error="false",dom_ready_le="3000"}[1m]))'
+      promql_total: 'sum(rate(frontend_rum_total[1m]))'
+      source: frontend_rum.jsonl
+    slo:
+      target: 0.98   
+      window_days: 30
+    budget:
+      total_events_per_month: 5184000       # 172,800 events/day * 30
+      allowed_failures_per_month: 103680    # 2% của tổng request
+      downtime_minutes_equivalent: 864      # (30 ngày * 1440 phút) * 2%

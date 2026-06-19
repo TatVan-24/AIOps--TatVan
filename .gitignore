@@ -26,3 +26,9 @@ venv.bak/
 .DS_Store
 Thumbs.db
 ./w2/d1/dataset
+
+*.jsonl
+*.log
+
+mlruns/
+mlflow.db

@@ -1,0 +1,134 @@
+{
+  "clusters_analyzed": 5,
+  "results": [
+    {
+      "cluster_id": "c-000-000",
+      "graph_top3": [
+        [
+          "edge-lb",
+          0.6
+        ],
+        [
+          "checkout-svc",
+          0.53
+        ],
+        [
+          "cart-svc",
+          0.15
+        ]
+      ],
+      "root_cause": "edge-lb",
+      "class": "ddos",
+      "confidence": 1.0,
+      "actions": [
+        "WAF rate-limit + Cloudflare proxy",
+        "Geographic rule."
+      ],
+      "reasoning": "Service edge-lb identified via topology (PageRank) and temporal alerts. Retrieved past incident with similarity score 1.0.",
+      "similar_incidents": [
+        "INC-2026-03-20"
+      ],
+      "method": "graph+retrieval"
+    },
+    {
+      "cluster_id": "c-001-000",
+      "graph_top3": [
+        [
+          "recommender-svc",
+          0.6
+        ]
+      ],
+      "root_cause": "recommender-svc",
+      "class": "memory_leak",
+      "confidence": 0.6,
+      "actions": [
+        "Patch leak; rollback v3.0 trong khi chờ",
+        "Add gc.collect() trong handler."
+      ],
+      "reasoning": "Service recommender-svc identified via topology (PageRank) and temporal alerts. Retrieved past incident with similarity score 0.6.",
+      "similar_incidents": [
+        "INC-2025-08-02"
+      ],
+      "method": "graph+retrieval"
+    },
+    {
+      "cluster_id": "c-002-000",
+      "graph_top3": [
+        [
+          "edge-lb",
+          0.6
+        ],
+        [
+          "payment-svc",
+          0.6
+        ]
+      ],
+      "root_cause": "edge-lb",
+      "class": "ddos",
+      "confidence": 0.8,
+      "actions": [
+        "WAF rate-limit + Cloudflare proxy",
+        "Geographic rule."
+      ],
+      "reasoning": "Service edge-lb identified via topology (PageRank) and temporal alerts. Retrieved past incident with similarity score 0.8.",
+      "similar_incidents": [
+        "INC-2026-03-20"
+      ],
+      "method": "graph+retrieval"
+    },
+    {
+      "cluster_id": "c-003-000",
+      "graph_top3": [
+        [
+          "checkout-svc",
+          0.6
+        ],
+        [
+          "search-svc",
+          0.6
+        ]
+      ],
+      "root_cause": "checkout-svc",
+      "class": "n_plus_1",
+      "confidence": 0.6,
+      "actions": [
+        "Batch fetch related products",
+        "Add monitoring query count / request."
+      ],
+      "reasoning": "Service checkout-svc identified via topology (PageRank) and temporal alerts. Retrieved past incident with similarity score 0.6.",
+      "similar_incidents": [
+        "INC-2026-01-29"
+      ],
+      "method": "graph+retrieval"
+    },
+    {
+      "cluster_id": "c-004-000",
+      "graph_top3": [
+        [
+          "edge-lb",
+          0.6
+        ],
+        [
+          "notification-svc",
+          0.6
+        ],
+        [
+          "payment-svc",
+          0.6
+        ]
+      ],
+      "root_cause": "edge-lb",
+      "class": "ddos",
+      "confidence": 0.8,
+      "actions": [
+        "WAF rate-limit + Cloudflare proxy",
+        "Geographic rule."
+      ],
+      "reasoning": "Service edge-lb identified via topology (PageRank) and temporal alerts. Retrieved past incident with similarity score 0.8.",
+      "similar_incidents": [
+        "INC-2026-03-20"
+      ],
+      "method": "graph+retrieval"
+    }
+  ]
+}
